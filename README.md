@@ -1,3 +1,4 @@
 # CursorKit
+Cursor control for SwiftUI on macOS
 
-A description of this package.
+## Installation
