@@ -1,5 +1,5 @@
 # CursorKit
-Cursor control for SwiftUI on macOS.
+Set cursors in SwiftUI on macOS.
 
 CursorKit acts as a wrapper around `NSCursor` for SwiftUI, and supports all default cursor types.
 
@@ -12,8 +12,7 @@ https://github.com/ryanslikesocool/CursorKit.git
 ## Usage
 
 ### Basic
-On a SwiftUI view, add the `.cursor(_ :)` modifier and pass in the desired cursor type from the `Cursor` enum.  The cursor will change to match the desired type when hovering over the view, and will reset to the standard arrow when not hovering.
-
+On a SwiftUI view, add the `cursor(_:)` modifier and pass in the desired cursor type from the `Cursor` enum.  The cursor will change to match the desired type when hovering over the view, and will reset to the standard arrow when not hovering.
 ```swift
 import SwiftUI
 import CursorKit
@@ -26,12 +25,21 @@ struct ContentView: View {
 	}
 }
 ```
-This modifier does not work well with moving content.  If you'd like to change the cursor for something like a slider, see Advanced usage below.
 
-### Advanced
-More advanced cases can be achieved with the static methods in the `Cursor` enum\
-`Cursor.set(cursor:)` - Sets the cursor\
-`Cursor.push(cursor:)` - Pushes the cursor onto the stack and makes it active\
-`Cursor.pop(cursor:)` - Pops the desired cursor off the stack (not recommended)\
-`Cursor.pop()` - Pops the top cursor off the stack\
-`Cursor.clear()` - Resets the cursor to the standard arrow\
+For better compatability with custom views and stacks, apply the `contentShape(_:)` modifier before the `cursor(_:)` modifier.
+```swift
+import SwiftUI
+import CursorKit
+
+struct ContentView: View {
+	var body: some View {
+		HStack { 
+			Image(systemName: "arrow.left")
+			Text("Left and Right")
+			Image(systemName: "arrow.right")
+		}
+		.contentShape(Rectangle()) // <- Set the hover test area to the entire stack, rather than just the visible parts
+		.cursor(.resizeLeftRight)
+	}
+}
+```

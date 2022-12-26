@@ -1,89 +1,101 @@
-import AppKit
+#if canImport(AppKit)
+    import AppKit
+    import SwiftUI
 
-public enum Cursor {
-    /// Corresponds to ``NSCursor.arrow``
-    case arrow
-    /// Corresponds to ``NSCursor.iBeam``
-    case iBeam
-    /// Corresponds to ``NSCursor.crossHair``
-    case crossHair
+    /// A pointer (also called a cursor).  The contained values map directly to ``AppKit.NSCursor`` values.
+    public enum Cursor {
+        /// The default cursor, the arrow cursor.  Corresponds to ``NSCursor.arrow``.
+        case arrow
 
-    /// Corresponds to ``NSCursor.closedHand``
-    case closedHand
-    /// Corresponds to ``NSCursor.openHand``
-    case openHand
-    /// Corresponds to ``NSCursor.pointingHand``
-    case pointingHand
+        /// The pointing-hand system cursor.  Corresponds to ``NSCursor.pointingHand``.
+        case pointingHand
 
-    /// Corresponds to ``NSCursor.resizeLeft``
-    case resizeLeft
-    /// Corresponds to ``NSCursor.resizeRight``
-    case resizeRight
-    /// Corresponds to ``NSCursor.resizeLeftRight``
-    case resizeLeftRight
+        /// The open-hand system cursor.  Corresponds to ``NSCursor.openHand``.
+        case openHand
 
-    /// Corresponds to ``NSCursor.resizeUp``
-    case resizeUp
-    /// Corresponds to ``NSCursor.resizeDown``
-    case resizeDown
-    /// Corresponds to ``NSCursor.resizeUpDown``
-    case resizeUpDown
+        /// The closed-hand system cursor.  Corresponds to ``NSCursor.closedHand``.
+        case closedHand
 
-    /// Corresponds to ``NSCursor.disappearingItem``
-    case disappearingItem
-    /// Corresponds to ``NSCursor.iBeamCursorForVerticalLayout``
-    case iBeamCursorForVerticalLayout
-    /// Corresponds to ``NSCursor.operationNotAllowed``
-    case operationNotAllowed
-    /// Corresponds to ``NSCursor.dragLink``
-    case dragLink
-    /// Corresponds to ``NSCursor.dragCopy``
-    case dragCopy
-    /// Corresponds to ``NSCursor.contextualMenu``
-    case contextualMenu
+        /// The resize-left system cursor.  Corresponds to ``NSCursor.resizeLeft``.
+        case resizeLeft
 
-    var rawValue: NSCursor {
-        switch self {
-        case .arrow: return NSCursor.arrow
-        case .iBeam: return NSCursor.iBeam
-        case .crossHair: return NSCursor.crosshair
+        /// The resize-right system cursor.  Corresponds to ``NSCursor.resizeRight``.
+        case resizeRight
 
-        case .closedHand: return NSCursor.closedHand
-        case .openHand: return NSCursor.openHand
-        case .pointingHand: return NSCursor.pointingHand
+        /// The resize-left-and-right system cursor.  Corresponds to ``NSCursor.resizeLeftRight``.
+        case resizeLeftRight
 
-        case .resizeLeft: return NSCursor.resizeLeft
-        case .resizeRight: return NSCursor.resizeRight
-        case .resizeLeftRight: return NSCursor.resizeLeftRight
+        /// The resize-up system cursor.  Corresponds to ``NSCursor.resizeUp``.
+        case resizeUp
 
-        case .resizeUp: return NSCursor.resizeUp
-        case .resizeDown: return NSCursor.resizeDown
-        case .resizeUpDown: return NSCursor.resizeUpDown
+        /// The resize-down system cursor.  Corresponds to ``NSCursor.resizeDown``.
+        case resizeDown
 
-        case .disappearingItem: return NSCursor.disappearingItem
-        case .iBeamCursorForVerticalLayout: return NSCursor.iBeamCursorForVerticalLayout
-        case .operationNotAllowed: return NSCursor.operationNotAllowed
-        case .dragLink: return NSCursor.dragLink
-        case .dragCopy: return NSCursor.dragCopy
-        case .contextualMenu: return NSCursor.contextualMenu
+        /// The resize-up-and-down system cursor.  Corresponds to ``NSCursor.resizeUpDown``.
+        case resizeUpDown
+
+        /// A cursor indicating that the current operation will result in a link action.  Corresponds to ``NSCursor.dragLink``.
+        case dragLink
+
+        /// A cursor indicating that the current operation will result in a copy action.  Corresponds to ``NSCursor.dragCopy``.
+        case dragCopy
+
+        /// The cross-hair system cursor.  Corresponds to ``NSCursor.crosshair``.
+        case crosshair
+
+        /// The contextual menu system cursor.  Corresponds to ``NSCursor.contextualMenu``.
+        case contextualMenu
+
+        /// A cursor indicating that the current operation will result in a disappearing item.  Corresponds to ``NSCursor.disappearingItem``.
+        case disappearingItem
+
+        /// The operation not allowed cursor.  Corresponds to ``NSCursor.operationNotAllowed``.
+        case operationNotAllowed
+
+        /// A cursor that looks like a capital I with a tiny crossbeam at its middle.  Corresponds to ``NSCursor.iBeam``.
+        case iBeam
+
+        /// The cursor for editing vertical layout text.  Corresponds to ``NSCursor.iBeamCursorForVerticalLayout``.
+        case iBeamCursorForVerticalLayout
+
+        /// The ``AppKit.NSCursor`` equivalent for the ``Cursor`` value.
+        internal var native: NSCursor {
+            switch self {
+                case .arrow: return NSCursor.arrow
+                case .pointingHand: return NSCursor.pointingHand
+                case .openHand: return NSCursor.openHand
+                case .closedHand: return NSCursor.closedHand
+                case .resizeLeft: return NSCursor.resizeLeft
+                case .resizeRight: return NSCursor.resizeRight
+                case .resizeLeftRight: return NSCursor.resizeLeftRight
+                case .resizeUp: return NSCursor.resizeUp
+                case .resizeDown: return NSCursor.resizeDown
+                case .resizeUpDown: return NSCursor.resizeUpDown
+                case .dragLink: return NSCursor.dragLink
+                case .dragCopy: return NSCursor.dragCopy
+                case .crosshair: return NSCursor.crosshair
+                case .contextualMenu: return NSCursor.contextualMenu
+                case .disappearingItem: return NSCursor.disappearingItem
+                case .operationNotAllowed: return NSCursor.operationNotAllowed
+                case .iBeam: return NSCursor.iBeam
+                case .iBeamCursorForVerticalLayout: return NSCursor.iBeamCursorForVerticalLayout
+            }
         }
     }
 
-    /// Replaces the active cursor with the input cursor.
-    /// - Parameter cursor: The new cursor to use.
-    public static func set(cursor: Cursor) { cursor.rawValue.set() }
-
-    /// Pushes a new cursor to the stack, making it active.
-    /// - Parameter cursor: The cursor to push.
-    public static func push(cursor: Cursor) { cursor.rawValue.push() }
-
-    /// Pops the cursor off the stack.  It's recommended to use ``pop()`` instead.
-    /// - Parameter cursor: The cursor to pop.
-    public static func pop(cursor: Cursor) { cursor.rawValue.pop() }
-
-    /// Pops the active cursor off the stack.
-    public static func pop() { NSCursor.pop() }
-
-    /// Resets the cursor to the default arrow.
-    public static func clear() { set(cursor: .arrow) }
-}
+    public extension View {
+        /// Sets the system cursor when hovering over a view.
+        ///
+        /// Apply the `contentShape` modifier before the `cursor` modifier for better compatability with custom views.
+        /// - Parameter cursor: The cursor to set.
+        func cursor(_ cursor: Cursor) -> some View {
+            onHover { hovering in
+                if hovering {
+                    cursor.native.push()
+                } else {
+                    NSCursor.pop()
+                }
+            }
+        }
+    }
+#endif
