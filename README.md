@@ -8,6 +8,10 @@ Install via the Swift Package Manager (`File/Add Packages...`)
 ```
 https://github.com/ryanslikesocool/CursorKit.git
 ```
+or as a package dependency
+```swift
+.package(url: "https://github.com/ryanslikesocool/CursorKit.git", from: "1.1.0")
+```
 
 ## Usage
 
