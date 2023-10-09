@@ -90,6 +90,8 @@ public enum Cursor {
 	/// Calls `NSCursor.<CursorType>.push()` internally.
 	public func push() {
 		#if canImport(AppKit)
+			NSApp.windows.forEach { window in window.disableCursorRects() }
+
 			native.push()
 		#endif
 	}
@@ -100,6 +102,8 @@ public enum Cursor {
 	public static func pop() {
 		#if canImport(AppKit)
 			NSCursor.pop()
+
+			NSApp.windows.forEach { window in window.enableCursorRects() }
 		#endif
 	}
 }
