@@ -3,6 +3,13 @@ Set cursors in SwiftUI on macOS.
 
 CursorKit acts as a wrapper around `NSCursor` for SwiftUI, and supports all default cursor types.
 
+## Deprecation Notice
+SwiftUI on macOS 15 and later provides the
+[`pointerStyle(_:)`]( https://developer.apple.com/documentation/swiftui/view/pointerstyle(_:) )
+and
+[`pointerVisibility(_:)`]( https://developer.apple.com/documentation/swiftui/view/pointervisibility(_:) )
+view modifiers.
+
 ## Installation
 Install via the Swift Package Manager (`File/Add Packages...`)
 ```
